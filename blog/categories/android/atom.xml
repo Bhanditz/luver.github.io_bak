@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: android | Vladislav Lubenskiy's blog]]></title>
+  <link href="http://luver.github.io/blog/categories/android/atom.xml" rel="self"/>
+  <link href="http://luver.github.io/"/>
+  <updated>2013-11-01T17:27:54+01:00</updated>
+  <id>http://luver.github.io/</id>
+  <author>
+    <name><![CDATA[Владислав Лубенский]]></name>
+    <email><![CDATA[vlad.lubenskiy@gmail.com]]></email>
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[Генерируем случайные числа тряской телефона]]></title>
+    <link href="http://luver.github.io/blog/2013/08/05/android-randoms/"/>
+    <updated>2013-08-05T08:00:00+02:00</updated>
+    <id>http://luver.github.io/blog/2013/08/05/android-randoms</id>
+    <content type="html"><![CDATA[<p>Прывітанне.</p>
+
+<p>С тех самых пор, как я купил себе Android-телефон (<a href="http://www.lg.com/uk/mobile-phones/lg-P880">вот такой</a>) думал что-нибудь для него написать, хотя бы попробовать. Не совсем Hello World, но и чтобы с интерфейсом не возиться.</p>
+
+<h3>Задача</h3>
+
+<p>Сделать приложение, которое генерирует случайные числа с помощью тряски телефона.</p>
+
+<h3>Решение</h3>
+
+<p>Если быть честным, приложение не генерирует числа, это было бы слишком сложно для упражнения :) Числа генерируются обыкновенным java.utils.Random'ом, а я ему даю псевдослучайный seed, который получаю с помощью гениального алгоритма и танцами диско с телефоном.</p>
+
+<h4>Layout</h4>
+
+<p>Честно говоря, я не очень люблю возиться с UI-ем (а с другим &mdash; не умею :), поэтому не буду подробно описывать, как я делал этот небогатый layout. Всё просто:</p>
+
+<ol>
+<li>Создаем пустой Android проект, в котором IDEA создает нам единственную Activity, больше и не нужно.</li>
+<li>Распологаем на Activity: EditText для указания разрядности, TextView для вывода сообщения и сгенерированного числа, ProgressBar и Button для самих себя. Поскольку, я делал это наугад, то вот вам просто ссылка на результат: <a href="https://github.com/luver/RandomNumberGenerator/blob/master/res/layout/main.xml">main.xml</a>.</li>
+</ol>
+
+
+<h4>Теория</h4>
+
+<p>Android предоставляет досуп к разным сенсорам (<a href="http://developer.android.com/guide/topics/sensors/sensors_overview.html">ссылка на доку</a>), которые могут быть как аппаратными, так и программными. Я буду использовать Rotation Vector Sensor, который следит за движением и вращением телефона, а возвращает тройку синусов углов. Это программный сенсор.</p>
+
+<p>Сначала, получаем инстанс Sensor'а:
+``` java
+class MainActivity {</p>
+
+<pre><code>@Override
+public void onCreate(Bundle savedInstanceState) {
+    ...
+    sensorManager = (SensorManager) getSystemService(SENSOR_SERVICE);
+    rotationSensor = sensorManager.getDefaultSensor(Sensor.TYPE_ROTATION_VECTOR);
+    ...
+}
+</code></pre>
+
+<p>}
+```</p>
+
+<p>Затем, регистрируем обработчик для обработки новых данных с сенсора:
+``` java
+&hellip;
+// Реализуем SensorEventListener
+public class MyListener implements SensorEventListener {</p>
+
+<pre><code>@Override
+public void onSensorChanged(SensorEvent event) {
+    System.out.println(Arrays.toString(event.values)); 
+    // [0.123, -0.254, -0.5555]
+}
+</code></pre>
+
+<p>}
+&hellip;
+// Регистрируем нового слушателя с периодом вызова в 10 мс
+sensorManager.registerListener(new MyListener(), rotationSensor, 10000);
+```
+Всё оказалось простым.</p>
+
+<h4>Java</h4>
+
+<p>В самом начале я написал два очень простых <s>велосипеда</s> класса для механизма callback'ов, чтобы связать Activity и мой SensorEventListener.
+<div class='bogus-wrapper'><notextile><figure class='code'><figcaption><span> (Callback.java)</span> <a href='/downloads/code/Callback.java'>download</a></figcaption>
+ <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+</pre></td><td class='code'><pre><code class='java'><span class='line'><span class="kn">package</span> <span class="n">com</span><span class="o">.</span><span class="na">luver</span><span class="o">.</span><span class="na">random</span><span class="o">;</span>
+</span><span class='line'>
+</span><span class='line'><span class="kd">public</span> <span class="kd">interface</span> <span class="nc">Callback</span><span class="o">&lt;</span><span class="n">Result</span><span class="o">&gt;</span> <span class="o">{</span>
+</span><span class='line'>    <span class="kt">void</span> <span class="nf">callback</span><span class="o">(</span><span class="n">Result</span> <span class="n">result</span><span class="o">);</span>
+</span><span class='line'><span class="o">}</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div>
+<div class='bogus-wrapper'><notextile><figure class='code'><figcaption><span> (CallbackClient.java)</span> <a href='/downloads/code/CallbackClient.java'>download</a></figcaption>
+ <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+</pre></td><td class='code'><pre><code class='java'><span class='line'><span class="kn">package</span> <span class="n">com</span><span class="o">.</span><span class="na">luver</span><span class="o">.</span><span class="na">random</span><span class="o">;</span>
+</span><span class='line'>
+</span><span class='line'><span class="kd">public</span> <span class="kd">interface</span> <span class="nc">CallbackClient</span><span class="o">&lt;</span><span class="n">Result</span><span class="o">&gt;</span> <span class="o">{</span>
+</span><span class='line'>    <span class="kt">void</span> <span class="nf">registerCallback</span><span class="o">(</span><span class="n">Callback</span><span class="o">&lt;</span><span class="n">Result</span><span class="o">&gt;</span> <span class="n">callback</span><span class="o">);</span>
+</span><span class='line'><span class="o">}</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p>Затем, соорудил гениальный алгоритм нахождения seed'а:
+``` java Среднее значение всех собранных данных
+private long getSeed() {</p>
+
+<pre><code>// Берем среднее значение всех синусов (200 штук в моем случае)
+double xSeed =  this.xSeed / times * 100000;
+double ySeed =  this.ySeed / times * 100000;
+double zSeed =  this.zSeed / times * 100000;
+
+// PROFIT! Находим среднее значение из трёх средних значений.
+return (long) ((xSeed + ySeed + zSeed) / 3);
+</code></pre>
+
+<p>}
+```</p>
+
+<p>Чтобы не вставлять сюда простыню джавы, отправляю <s>одного себя</s> немногочисленных посетителей на GitHub: <a href="https://github.com/luver/RandomNumberGenerator/tree/master/src/com/luver/random">repo</a>.</p>
+
+<h3>P.S.</h3>
+
+<p>Я писал для Андроида впервые и всё оказалось довольно простым. Но Android-девелопером не стану :)</p>
+
+<p><img src="/images/android_screen_1.png" width="600">
+<img src="/images/android_screen_2.png" width="600"></p>
+]]></content>
+  </entry>
+  
+</feed>

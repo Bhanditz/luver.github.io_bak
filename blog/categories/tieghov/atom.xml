@@ -4,7 +4,7 @@
   <title><![CDATA[Category: тегов | Vladislav Lubenskiy's blog]]></title>
   <link href="http://luver.github.io/blog/categories/tieghov/atom.xml" rel="self"/>
   <link href="http://luver.github.io/"/>
-  <updated>2013-11-01T17:27:54+01:00</updated>
+  <updated>2013-11-05T03:13:32+01:00</updated>
   <id>http://luver.github.io/</id>
   <author>
     <name><![CDATA[Владислав Лубенский]]></name>
@@ -29,6 +29,9 @@
 <h3>Решение</h3>
 
 <p>Если быть честным, приложение не генерирует числа, это было бы слишком сложно для упражнения :) Числа генерируются обыкновенным java.utils.Random'ом, а я ему даю псевдослучайный seed, который получаю с помощью гениального алгоритма и танцами диско с телефоном.</p>
+
+<!--more-->
+
 
 <h4>Layout</h4>
 

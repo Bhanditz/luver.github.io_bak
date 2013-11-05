@@ -2,22 +2,30 @@
 <urlset xmlns='http://www.sitemaps.org/schemas/sitemap/0.9'>
     <url>
         <loc>http://luver.github.io/blog/2013/07/18/test-post/</loc>
-        <lastmod>2013-08-04T19:04:56+02:00</lastmod>
+        <lastmod>2013-11-05T03:12:09+01:00</lastmod>
     </url>
     <url>
         <loc>http://luver.github.io/blog/2013/08/05/android-randoms/</loc>
-        <lastmod>2013-08-04T21:01:34+02:00</lastmod>
+        <lastmod>2013-11-05T03:12:09+01:00</lastmod>
+    </url>
+    <url>
+        <loc>http://luver.github.io/blog/2013/11/01/using-jython-ang-groovy-from-java-app/</loc>
+        <lastmod>2013-11-05T03:13:31+01:00</lastmod>
     </url>
     <url>
         <loc>http://luver.github.io/</loc>
-        <lastmod>2013-08-04T21:01:34+02:00</lastmod>
+        <lastmod>2013-11-05T03:13:31+01:00</lastmod>
     </url>
     <url>
         <loc>http://luver.github.io/robots.txt</loc>
-        <lastmod>2013-07-18T01:56:19+02:00</lastmod>
+        <lastmod>2013-11-05T03:12:09+01:00</lastmod>
     </url>
     <url>
         <loc>http://luver.github.io/blog/archives/</loc>
-        <lastmod>2013-08-04T21:01:34+02:00</lastmod>
+        <lastmod>2013-11-05T03:13:31+01:00</lastmod>
+    </url>
+    <url>
+        <loc>http://luver.github.io/about/</loc>
+        <lastmod>2013-11-05T03:12:09+01:00</lastmod>
     </url>
 </urlset>

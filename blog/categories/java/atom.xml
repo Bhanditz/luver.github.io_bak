@@ -1,0 +1,354 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: java | Vladislav Lubenskiy's blog]]></title>
+  <link href="http://luver.github.io/blog/categories/java/atom.xml" rel="self"/>
+  <link href="http://luver.github.io/"/>
+  <updated>2013-11-05T03:13:32+01:00</updated>
+  <id>http://luver.github.io/</id>
+  <author>
+    <name><![CDATA[Владислав Лубенский]]></name>
+    <email><![CDATA[vlad.lubenskiy@gmail.com]]></email>
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[Используем Jython и Groovy из Java-приложения. Чайник-level.]]></title>
+    <link href="http://luver.github.io/blog/2013/11/01/using-jython-ang-groovy-from-java-app/"/>
+    <updated>2013-11-01T18:01:00+01:00</updated>
+    <id>http://luver.github.io/blog/2013/11/01/using-jython-ang-groovy-from-java-app</id>
+    <content type="html"><![CDATA[<p>Grüß Gott.</p>
+
+<h3>Вступление</h3>
+
+<p>Я пишу приложение на джаве и у меня возникла необходимость переносить информацию из JIRA, Mantis и еще пары-тройки подобных систем во внутренную БД приложения. Эта миграция данных &mdash; часть стандартного workflow: вот запустил приложение, вот данные смигрировал и работай себе дальше. Переносить мне нужно реквесты, проекты, пользователей, статусы и многое другое. Всё, в общем.</p>
+
+<p>Само приложение пишется на джаве и самым глупым решением было бы написать <strong>Большой Универсальный Конвертер Данных</strong>, который можно, например, сконфигурировать XML-инкой. Естественно, я сразу начал его писать. Но стоп!</p>
+
+<h3>Проблема</h3>
+
+<p>А что если в исходной базе десять таблиц, а в приложении &mdash; 25? А если в исходной 25, а у нас только десять? Вывод: для каждого конкретного случая нам нужен собственный сценарий миграции данных.</p>
+
+<p>А сценарий на английском &mdash; это что? Это script. Значит нужно использовать скриптовый язык. Приложение на Java и я не хочу вылазить из этой среды, а еще лучше &mdash; не вылазить из одного билда. И я решил посмотреть на <a href="http://en.wikipedia.org/wiki/Jython">Jython</a> (Java-based интепретатор питона, а заодно и компилятор к нему) и <a href="http://en.wikipedia.org/wiki/Groovy">Groovy</a>.</p>
+
+<h3>Задача</h3>
+
+<ol>
+<li>Сделать Maven-проект, который собирает Jython/Groovy-скрипты в jar-ник и делает их прямо доступными из Java-приложения.</li>
+<li>Выбрать один из них.</li>
+</ol>
+
+
+<!--more-->
+
+
+<h3>Jython</h3>
+
+<p>Процесс интеграции Jython и джавы хорошо описан в <a href="http://www.jython.org/jythonbook/en/1.0/JythonAndJavaIntegration.html">официальной документации</a>, которой я и пользовался.</p>
+
+<p>Вкратце, там описаны два подхода к мосту между языками: универсальная фабрика и «одна фабрика на один класс» (One-to-One Object Factory). Универсальная фабрика обладает меньшей связанностью (coupling), ее и будем использовать.</p>
+
+<h4>Maven</h4>
+
+<p>Для начала зададим простую структуру maven-проекта:
+``` xml
+<project ...>
+  &hellip;
+  <groupId>com.example</groupId>
+  <artifactId>main_module</artifactId>
+  <packaging>pom</packaging>
+  &hellip;
+  <modules></p>
+
+<pre><code>&lt;module&gt;example_interface&lt;/module&gt; &lt;!-- Объявим Java-интерфейс --&gt;
+&lt;module&gt;example_impl&lt;/module&gt; &lt;!-- Реализуем его на питоне --&gt;
+&lt;module&gt;example_user&lt;/module&gt; &lt;!-- Запустим всё это --&gt;
+</code></pre>
+
+<p>  </modules>
+  <build></p>
+
+<pre><code>...
+</code></pre>
+
+<p>  </build>
+</project>
+```</p>
+
+<p>POMы модулей example_interface/example_user нам не очень интересны. Главное &mdash; правильно поставить зависимости и настроить билд так, чтобы модуль example_user собирался в одном jar-нике вместе с зависимостями.</p>
+
+<p>А вот и модуль с реализацией:
+``` xml
+<project ...>
+  <groupId>com.example</groupId>
+  <artifactId>example_impl</artifactId>
+  <packaging>jar</packaging>
+  &hellip;
+  <parent></p>
+
+<pre><code>...
+</code></pre>
+
+<p>  </parent>
+  <dependencies></p>
+
+<pre><code>&lt;dependency&gt;
+  &lt;groupId&gt;com.example&lt;/groupId&gt;
+  &lt;artifactId&gt;example_interface&lt;/artifactId&gt;
+  ...
+&lt;/dependency&gt;
+&lt;dependency&gt; &lt;!-- Добавляем сам Jython --&gt;
+    &lt;groupId&gt;org.python&lt;/groupId&gt;
+    &lt;artifactId&gt;jython-standalone&lt;/artifactId&gt;
+    &lt;version&gt;2.5.2&lt;/version&gt;
+&lt;/dependency&gt;
+</code></pre>
+
+<p>  </dependencies>
+  <build></p>
+
+<pre><code>...
+</code></pre>
+
+<p>  </build>
+</project>
+```</p>
+
+<p>В итоге мы получим папку с pom.xml в корне и три папки модулей. Структура модуля example_impl выглядит следующим образом:</p>
+
+<br/>
+
+
+<p><img src="/images/scripts2java/dir_hier.png"></p>
+
+<br/>
+
+
+<h4>Jython</h4>
+
+<p>Я использовал самый производительный подход для связи между двумя языками с меньшей связанностью. <a href="http://www.jython.org/jythonbook/en/1.0/JythonAndJavaIntegration.html#more-efficient-version-of-loosely-coupled-object-factory">Подход</a> взят из документации.</p>
+
+<p><strong>ACHTUNG:</strong> этот подход использует загрузку питоновских модулей через <span style="font-family: monospace">__import__</span>. Это значит, что без дополнительных телодвижений можно импортировать только модули, которые вы можете идентифицировать без точки. Проще говоря, <span style="font-family: monospace">__import__(app.factories.factory)</span> импортирует только модуль <span style="font-family: monospace">app</span>. Вы, конечно, можете вызывать __import__ и с другой сигнатурой (которая импортирует любой модуль), но для этого вам надо будет поменять фабрику и прилично полазить в документации.</p>
+
+<p>Итак. Наш интерфейс выглядит так:
+``` java
+package com.example;
+public interface Iface {</p>
+
+<pre><code>String migrate(String sourceConnectionString, String resultConnectionString);
+</code></pre>
+
+<p>}
+```</p>
+
+<p>А его реализация на питоне так:
+``` python
+from com.example import Iface # Импорт из джавы
+class Migration(Iface):</p>
+
+<pre><code>def migrate(self, con1, con2):
+    print(con1)
+    print(con2)
+    return "Migration done with conns: " + con1 + con2
+# Прямо скажем -- не очень сложно
+</code></pre>
+
+<p>```</p>
+
+<p>А вот как его видит Java:
+``` java
+package com.example;
+public class Impl {</p>
+
+<pre><code>public void doSmth(String con1, String con2) {
+    JythonObjectFactory factory = new JythonObjectFactory(
+            Iface.class, "lib", "Migration");
+    Iface iface = (Iface) factory.createObject();
+    System.out.println(iface.migrate(con1, con2));
+}
+</code></pre>
+
+<p>}
+```</p>
+
+<p>Финал, вызываем:
+```java
+package com.example;
+public class App {</p>
+
+<pre><code>public static void main(String[] args) {
+    Impl impl = new Impl();
+    impl.doSmth("ConnectionString1", "ConnectionString2");
+}
+</code></pre>
+
+<p>}</p>
+
+<p>```</p>
+
+<p>Отлично. Делаем <span style="font-family: monospace">mvn package</span>. И вызываем:</p>
+
+<p><img src="/images/scripts2java/jython_output.png"></p>
+
+<h4>Итого</h4>
+
+<p>К сожалению, мы не можем компилировать Jython через Maven. Разработка временно (?) заброшена из-за проблем в реализации.</p>
+
+<p>А необходимость интерпретации в run-time вынуджает нас создавать мост между языками. Кроме того, эта маленькая программа выполнялась аж 4 секунды и виной тому затык во время инициализации интепретатора.</p>
+
+<h3>Groovy</h3>
+
+<p>С Groovy всё оказалось просто и понятно, хоть я и потратил часа четыре на гугление. Отличие и главное преимущество Groovy заключается в том, что мы можем скомпилировать его в *.class и вызывать из джавы как джаву. Этим и займемся.</p>
+
+<h4>Maven</h4>
+
+<p><strong>ACHTUNG:</strong> работает только с Maven 3.</p>
+
+<p>Естественно, я всё подсмотрел в <a href="http://groovy.codehaus.org/Groovy-Eclipse+compiler+plugin+for+Maven">официальной документации</a>. Структуру базового проекта оставляем такой же, как и структуру проекта с интерфейсом и пользователем. А вот структура модуля реализации на Groovy существенно отличается от Jython: мы уже не используем джаву, поэтому нам нужно особым образом настроить билд. Да и зависимости, конечно, поменяются:</p>
+
+<p>```xml
+<project ...></p>
+
+<pre><code>...
+&lt;artifactId&gt;example_impl&lt;/artifactId&gt;
+...
+&lt;dependencies&gt;
+    ...
+    &lt;dependency&gt;
+        &lt;!-- Обязательная зависимость --&gt;
+        &lt;groupId&gt;org.codehaus.groovy&lt;/groupId&gt;
+        &lt;artifactId&gt;groovy-all&lt;/artifactId&gt;
+        &lt;version&gt;2.1.8&lt;/version&gt;
+        &lt;type&gt;jar&lt;/type&gt;
+    &lt;/dependency&gt;
+&lt;/dependencies&gt;
+&lt;build&gt;
+    &lt;plugins&gt;
+        &lt;plugin&gt;
+            &lt;!-- Мы хотим собрать модуль в jar-ник --&gt;
+            &lt;groupId&gt;org.apache.maven.plugins&lt;/groupId&gt;
+            &lt;artifactId&gt;maven-jar-plugin&lt;/artifactId&gt;
+            &lt;version&gt;2.4&lt;/version&gt;
+        &lt;/plugin&gt;
+
+        &lt;plugin&gt;
+            &lt;groupId&gt;org.apache.maven.plugins&lt;/groupId&gt;
+            &lt;artifactId&gt;maven-compiler-plugin&lt;/artifactId&gt;
+            &lt;version&gt;3.0&lt;/version&gt;
+            &lt;configuration&gt;
+                &lt;compilerId&gt;groovy-eclipse-compiler&lt;/compilerId&gt;
+                &lt;includes&gt;
+                    &lt;!-- Без этой секции ничего не работает! --&gt;
+                    &lt;include&gt;**/*.groovy&lt;/include&gt;
+                &lt;/includes&gt;
+                &lt;excludes&gt;
+                    &lt;exclude&gt;**/*.java&lt;/exclude&gt;
+                &lt;/excludes&gt;
+            &lt;/configuration&gt;
+            &lt;dependencies&gt;
+                &lt;dependency&gt;
+                    &lt;groupId&gt;org.codehaus.groovy&lt;/groupId&gt;
+                    &lt;artifactId&gt;groovy-eclipse-batch&lt;/artifactId&gt;
+                    &lt;version&gt;2.1.5-03&lt;/version&gt;
+                &lt;/dependency&gt;
+
+                &lt;dependency&gt;
+                    &lt;groupId&gt;org.codehaus.groovy&lt;/groupId&gt;
+                    &lt;artifactId&gt;groovy-eclipse-compiler&lt;/artifactId&gt;
+                    &lt;version&gt;2.8.0-01&lt;/version&gt;
+                &lt;/dependency&gt;
+            &lt;/dependencies&gt;
+        &lt;/plugin&gt;
+
+        &lt;plugin&gt;
+            &lt;!-- С помощью этого мы поддерживаем стандартную структуру maven-проекта--&gt;
+            &lt;groupId&gt;org.codehaus.mojo&lt;/groupId&gt;
+            &lt;artifactId&gt;build-helper-maven-plugin&lt;/artifactId&gt;
+            &lt;version&gt;1.5&lt;/version&gt;
+            &lt;executions&gt;
+                &lt;execution&gt;
+                    &lt;id&gt;add-source&lt;/id&gt;
+                    &lt;phase&gt;generate-sources&lt;/phase&gt;
+                    &lt;goals&gt;
+                        &lt;goal&gt;add-source&lt;/goal&gt;
+                    &lt;/goals&gt;
+                    &lt;configuration&gt;
+                        &lt;sources&gt;
+                            &lt;source&gt;src/main/groovy&lt;/source&gt;
+                        &lt;/sources&gt;
+                    &lt;/configuration&gt;
+                &lt;/execution&gt;
+                &lt;execution&gt;
+                    &lt;id&gt;add-test-source&lt;/id&gt;
+                    &lt;phase&gt;generate-test-sources&lt;/phase&gt;
+                    &lt;goals&gt;
+                        &lt;goal&gt;add-test-source&lt;/goal&gt;
+                    &lt;/goals&gt;
+                    &lt;configuration&gt;
+                        &lt;sources&gt;
+                            &lt;source&gt;src/test/groovy&lt;/source&gt;
+                        &lt;/sources&gt;
+                    &lt;/configuration&gt;
+                &lt;/execution&gt;
+            &lt;/executions&gt;
+        &lt;/plugin&gt;
+    &lt;/plugins&gt;
+&lt;/build&gt;
+</code></pre>
+
+<p></project></p>
+
+<p>```</p>
+
+<h4>Groovy</h4>
+
+<p>Создаем обычную структуру проекта, организовываем пакеты как в Java:</p>
+
+<p><img src="/images/scripts2java/dir_hier_groovy.png"></p>
+
+<p>И делаем один файл с двумя классами, Impl.groovy:</p>
+
+<p>```groovy
+package com.example</p>
+
+<p>public class Impl {</p>
+
+<pre><code>public void doSmth(String con1, String con2) {
+    Iface iface = new Migration();
+    System.out.println(iface.migrate(con1, con2));
+}
+</code></pre>
+
+<p>}</p>
+
+<p>public class Migration implements Iface {</p>
+
+<pre><code>@Override
+String migrate(String sourceConnectionString, String resultConnectionString) {
+    // Приятная деталь, нам не нужен return.
+    "Migration done with conns: " + sourceConnectionString + resultConnectionString
+}
+</code></pre>
+
+<p>}</p>
+
+<p>```</p>
+
+<p>Код пользователя оставляем таким, каким был. Прогоняем <span style="font-family: monospace">mvn package</span>, запускаем:</p>
+
+<p><img src="/images/scripts2java/groovy_output.png"></p>
+
+<h3>Итого</h3>
+
+<p>Главный итог: Jython вообще не попадает.</p>
+
+<p>Groovy линкуется с Java-кодом прямей некуда, Groovy компилируется. Для решения задачи я выбрал Groovy, который позволил мне и скрипты писать и за пределы среды/билда не выходить.</p>
+
+<h3>P.S.</h3>
+
+<p>Ссылка на <a href="https://github.com/luver/script2java">исходник</a></p>
+]]></content>
+  </entry>
+  
+</feed>

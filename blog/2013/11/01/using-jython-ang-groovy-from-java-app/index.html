@@ -1,24 +1,81 @@
-<?xml version="1.0" encoding="utf-8"?>
-<feed xmlns="http://www.w3.org/2005/Atom">
 
-  <title><![CDATA[Vladislav Lubenskiy's blog]]></title>
-  <link href="http://luver.github.io/atom.xml" rel="self"/>
-  <link href="http://luver.github.io/"/>
-  <updated>2013-11-05T03:13:32+01:00</updated>
-  <id>http://luver.github.io/</id>
-  <author>
-    <name><![CDATA[Владислав Лубенский]]></name>
-    <email><![CDATA[vlad.lubenskiy@gmail.com]]></email>
-  </author>
-  <generator uri="http://octopress.org/">Octopress</generator>
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>Используем Jython и Groovy из Java-приложения. Чайник-level. - Vladislav Lubenskiy's blog</title>
+  <meta name="author" content="Владислав Лубенский">
 
   
-  <entry>
-    <title type="html"><![CDATA[Используем Jython и Groovy из Java-приложения. Чайник-level.]]></title>
-    <link href="http://luver.github.io/blog/2013/11/01/using-jython-ang-groovy-from-java-app/"/>
-    <updated>2013-11-01T18:01:00+01:00</updated>
-    <id>http://luver.github.io/blog/2013/11/01/using-jython-ang-groovy-from-java-app</id>
-    <content type="html"><![CDATA[<p>Grüß Gott.</p>
+  <meta name="description" content="Grüß Gott. Вступление Я пишу приложение на джаве и у меня возникла необходимость переносить информацию из JIRA, Mantis и еще пары-тройки подобных &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://luver.github.io/blog/2013/11/01/using-jython-ang-groovy-from-java-app">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <link href="/atom.xml" rel="alternate" title="Vladislav Lubenskiy's blog" type="application/atom+xml">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+  <script>!window.jQuery && document.write(unescape('%3Cscript src="./javascripts/lib/jquery.min.js"%3E%3C/script%3E'))</script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+  
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <div id="header-inner">
+    <span class="first"><a href="/">Vladislav Lubenskiy's blog</a></span>
+    <span><a href="/about">about</a></span>
+    <span><a href="http://www.github.com/">projects</a></span>
+    <span class="last"><a href="/atom.xml" title="subscribe via RSS">rss</a></span>
+  </div>
+</hgroup>
+
+</header>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">Используем Jython и Groovy из Java-приложения. Чайник-level.</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-11-01T18:01:00+01:00" pubdate data-updated="true">Nov 1<span>st</span>, 2013</time>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><p>Grüß Gott.</p>
 
 <h3>Вступление</h3>
 
@@ -146,7 +203,7 @@
 <br/>
 
 
-<p><img src="http://luver.github.io/images/scripts2java/dir_hier.png"></p>
+<p><img src="/images/scripts2java/dir_hier.png"></p>
 
 <br/>
 
@@ -233,7 +290,7 @@
 
 <p>Отлично. Делаем <span style="font-family: monospace">mvn package</span>. И вызываем:</p>
 
-<p><img src="http://luver.github.io/images/scripts2java/jython_output.png"></p>
+<p><img src="/images/scripts2java/jython_output.png"></p>
 
 <h4>Итого</h4>
 
@@ -432,7 +489,7 @@
 
 <p>Создаем обычную структуру проекта, организовываем пакеты как в Java:</p>
 
-<p><img src="http://luver.github.io/images/scripts2java/dir_hier_groovy.png"></p>
+<p><img src="/images/scripts2java/dir_hier_groovy.png"></p>
 
 <p>И делаем один файл с двумя классами, Impl.groovy:</p>
 
@@ -473,7 +530,7 @@
 
 <p>Код пользователя оставляем таким, каким был. Прогоняем <span style="font-family: monospace">mvn package</span>, запускаем:</p>
 
-<p><img src="http://luver.github.io/images/scripts2java/groovy_output.png"></p>
+<p><img src="/images/scripts2java/groovy_output.png"></p>
 
 <h3>Итого</h3>
 
@@ -484,183 +541,118 @@
 <h3>P.S.</h3>
 
 <p>Ссылка на <a href="https://github.com/luver/script2java">исходник</a></p>
-]]></content>
-  </entry>
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
   
-  <entry>
-    <title type="html"><![CDATA[Генерируем случайные числа тряской телефона]]></title>
-    <link href="http://luver.github.io/blog/2013/08/05/android-randoms/"/>
-    <updated>2013-08-05T08:00:00+02:00</updated>
-    <id>http://luver.github.io/blog/2013/08/05/android-randoms</id>
-    <content type="html"><![CDATA[<p>Прывітанне.</p>
 
-<p>С тех самых пор, как я купил себе Android-телефон (<a href="http://www.lg.com/uk/mobile-phones/lg-P880">вот такой</a>) думал что-нибудь для него написать, хотя бы попробовать. Не совсем Hello World, но и чтобы с интерфейсом не возиться.</p>
+<span class="byline author vcard">Posted by <span class="fn">Владислав Лубенский</span></span>
 
-<h3>Задача</h3>
-
-<p>Сделать приложение, которое генерирует случайные числа с помощью тряски телефона.</p>
-
-<h3>Решение</h3>
-
-<p>Если быть честным, приложение не генерирует числа, это было бы слишком сложно для упражнения :) Числа генерируются обыкновенным java.utils.Random&#8217;ом, а я ему даю псевдослучайный seed, который получаю с помощью гениального алгоритма и танцами диско с телефоном.</p>
-
-<!--more-->
+      
 
 
-<h4>Layout</h4>
-
-<p>Честно говоря, я не очень люблю возиться с UI-ем (а с другим &mdash; не умею :), поэтому не буду подробно описывать, как я делал этот небогатый layout. Всё просто:</p>
-
-<ol>
-<li>Создаем пустой Android проект, в котором IDEA создает нам единственную Activity, больше и не нужно.</li>
-<li>Распологаем на Activity: EditText для указания разрядности, TextView для вывода сообщения и сгенерированного числа, ProgressBar и Button для самих себя. Поскольку, я делал это наугад, то вот вам просто ссылка на результат: <a href="https://github.com/luver/RandomNumberGenerator/blob/master/res/layout/main.xml">main.xml</a>.</li>
-</ol>
 
 
-<h4>Теория</h4>
-
-<p>Android предоставляет досуп к разным сенсорам (<a href="http://developer.android.com/guide/topics/sensors/sensors_overview.html">ссылка на доку</a>), которые могут быть как аппаратными, так и программными. Я буду использовать Rotation Vector Sensor, который следит за движением и вращением телефона, а возвращает тройку синусов углов. Это программный сенсор.</p>
-
-<p>Сначала, получаем инстанс Sensor&#8217;а:</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-</pre></td><td class='code'><pre><code class='java'><span class='line'><span class="kd">class</span> <span class="nc">MainActivity</span> <span class="o">{</span>
-</span><span class='line'>
-</span><span class='line'>    <span class="nd">@Override</span>
-</span><span class='line'>    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">onCreate</span><span class="o">(</span><span class="n">Bundle</span> <span class="n">savedInstanceState</span><span class="o">)</span> <span class="o">{</span>
-</span><span class='line'>        <span class="o">...</span>
-</span><span class='line'>        <span class="n">sensorManager</span> <span class="o">=</span> <span class="o">(</span><span class="n">SensorManager</span><span class="o">)</span> <span class="n">getSystemService</span><span class="o">(</span><span class="n">SENSOR_SERVICE</span><span class="o">);</span>
-</span><span class='line'>        <span class="n">rotationSensor</span> <span class="o">=</span> <span class="n">sensorManager</span><span class="o">.</span><span class="na">getDefaultSensor</span><span class="o">(</span><span class="n">Sensor</span><span class="o">.</span><span class="na">TYPE_ROTATION_VECTOR</span><span class="o">);</span>
-</span><span class='line'>        <span class="o">...</span>
-</span><span class='line'>    <span class="o">}</span>
-</span><span class='line'><span class="o">}</span>
-</span></code></pre></td></tr></table></div></figure>
 
 
-<p>Затем, регистрируем обработчик для обработки новых данных с сенсора:</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-<span class='line-number'>12</span>
-</pre></td><td class='code'><pre><code class='java'><span class='line'><span class="o">...</span>
-</span><span class='line'><span class="c1">// Реализуем SensorEventListener</span>
-</span><span class='line'><span class="kd">public</span> <span class="kd">class</span> <span class="nc">MyListener</span> <span class="kd">implements</span> <span class="n">SensorEventListener</span> <span class="o">{</span>
-</span><span class='line'>    <span class="nd">@Override</span>
-</span><span class='line'>    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">onSensorChanged</span><span class="o">(</span><span class="n">SensorEvent</span> <span class="n">event</span><span class="o">)</span> <span class="o">{</span>
-</span><span class='line'>        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">Arrays</span><span class="o">.</span><span class="na">toString</span><span class="o">(</span><span class="n">event</span><span class="o">.</span><span class="na">values</span><span class="o">));</span>
-</span><span class='line'>        <span class="c1">// [0.123, -0.254, -0.5555]</span>
-</span><span class='line'>    <span class="o">}</span>
-</span><span class='line'><span class="o">}</span>
-</span><span class='line'><span class="o">...</span>
-</span><span class='line'><span class="c1">// Регистрируем нового слушателя с периодом вызова в 10 мс</span>
-</span><span class='line'><span class="n">sensorManager</span><span class="o">.</span><span class="na">registerListener</span><span class="o">(</span><span class="k">new</span> <span class="n">MyListener</span><span class="o">(),</span> <span class="n">rotationSensor</span><span class="o">,</span> <span class="mi">10000</span><span class="o">);</span>
-</span></code></pre></td></tr></table></div></figure>
 
 
-<p>Всё оказалось простым.</p>
-
-<h4>Java</h4>
-
-<p>В самом начале я написал два очень простых <s>велосипеда</s> класса для механизма callback&#8217;ов, чтобы связать Activity и мой SensorEventListener.</p>
-
-<figure class='code'><figcaption><span> (Callback.java)</span> <a href='http://luver.github.io/downloads/code/Callback.java'>download</a></figcaption>
- <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-</pre></td><td class='code'><pre><code class='java'><span class='line'><span class="kn">package</span> <span class="n">com</span><span class="o">.</span><span class="na">luver</span><span class="o">.</span><span class="na">random</span><span class="o">;</span>
-</span><span class='line'>
-</span><span class='line'><span class="kd">public</span> <span class="kd">interface</span> <span class="nc">Callback</span><span class="o">&lt;</span><span class="n">Result</span><span class="o">&gt;</span> <span class="o">{</span>
-</span><span class='line'>    <span class="kt">void</span> <span class="nf">callback</span><span class="o">(</span><span class="n">Result</span> <span class="n">result</span><span class="o">);</span>
-</span><span class='line'><span class="o">}</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<figure class='code'><figcaption><span> (CallbackClient.java)</span> <a href='http://luver.github.io/downloads/code/CallbackClient.java'>download</a></figcaption>
- <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-</pre></td><td class='code'><pre><code class='java'><span class='line'><span class="kn">package</span> <span class="n">com</span><span class="o">.</span><span class="na">luver</span><span class="o">.</span><span class="na">random</span><span class="o">;</span>
-</span><span class='line'>
-</span><span class='line'><span class="kd">public</span> <span class="kd">interface</span> <span class="nc">CallbackClient</span><span class="o">&lt;</span><span class="n">Result</span><span class="o">&gt;</span> <span class="o">{</span>
-</span><span class='line'>    <span class="kt">void</span> <span class="nf">registerCallback</span><span class="o">(</span><span class="n">Callback</span><span class="o">&lt;</span><span class="n">Result</span><span class="o">&gt;</span> <span class="n">callback</span><span class="o">);</span>
-</span><span class='line'><span class="o">}</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>Затем, соорудил гениальный алгоритм нахождения seed&#8217;а:</p>
-
-<figure class='code'><figcaption><span>Среднее значение всех собранных данных</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-</pre></td><td class='code'><pre><code class='java'><span class='line'><span class="kd">private</span> <span class="kt">long</span> <span class="nf">getSeed</span><span class="o">()</span> <span class="o">{</span>
-</span><span class='line'>    <span class="c1">// Берем среднее значение всех синусов (200 штук в моем случае)</span>
-</span><span class='line'>    <span class="kt">double</span> <span class="n">xSeed</span> <span class="o">=</span>  <span class="k">this</span><span class="o">.</span><span class="na">xSeed</span> <span class="o">/</span> <span class="n">times</span> <span class="o">*</span> <span class="mi">100000</span><span class="o">;</span>
-</span><span class='line'>    <span class="kt">double</span> <span class="n">ySeed</span> <span class="o">=</span>  <span class="k">this</span><span class="o">.</span><span class="na">ySeed</span> <span class="o">/</span> <span class="n">times</span> <span class="o">*</span> <span class="mi">100000</span><span class="o">;</span>
-</span><span class='line'>    <span class="kt">double</span> <span class="n">zSeed</span> <span class="o">=</span>  <span class="k">this</span><span class="o">.</span><span class="na">zSeed</span> <span class="o">/</span> <span class="n">times</span> <span class="o">*</span> <span class="mi">100000</span><span class="o">;</span>
-</span><span class='line'>
-</span><span class='line'>    <span class="c1">// PROFIT! Находим среднее значение из трёх средних значений.</span>
-</span><span class='line'>    <span class="k">return</span> <span class="o">(</span><span class="kt">long</span><span class="o">)</span> <span class="o">((</span><span class="n">xSeed</span> <span class="o">+</span> <span class="n">ySeed</span> <span class="o">+</span> <span class="n">zSeed</span><span class="o">)</span> <span class="o">/</span> <span class="mi">3</span><span class="o">);</span>
-</span><span class='line'><span class="o">}</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>Чтобы не вставлять сюда простыню джавы, отправляю <s>одного себя</s> немногочисленных посетителей на GitHub: <a href="https://github.com/luver/RandomNumberGenerator/tree/master/src/com/luver/random">repo</a>.</p>
-
-<h3>P.S.</h3>
-
-<p>Я писал для Андроида впервые и всё оказалось довольно простым. Но Android-девелопером не стану :)</p>
-
-<p><img src="http://luver.github.io/images/android_screen_1.png" width="600">
-<img src="http://luver.github.io/images/android_screen_2.png" width="600"></p>
-]]></content>
-  </entry>
   
-  <entry>
-    <title type="html"><![CDATA[Тестовый пост]]></title>
-    <link href="http://luver.github.io/blog/2013/07/18/test-post/"/>
-    <updated>2013-07-18T03:19:00+02:00</updated>
-    <id>http://luver.github.io/blog/2013/07/18/test-post</id>
-    <content type="html"><![CDATA[<p>Товарищи, категорически рекомендую <a href="http://octopress.org/docs/blogging/%20Blogging%20basics">&ldquo;Octopress&rdquo;</a> всем, кто хочет вести блог и не боится залезть в консоль, выучить Markdown и построить коллайдер.</p>
 
-<p>Я всегда мечтал о том, чтобы можно было обращаться с постами, как с кодом. И вот она, мечта. А еще тут невероятно няшные code snippets:</p>
 
-<figure class='code'><figcaption><span>Yeah!</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-</pre></td><td class='code'><pre><code class='python'><span class='line'><span class="k">class</span> <span class="nc">FooClass</span><span class="p">(</span><span class="n">BarClass</span><span class="p">):</span>
-</span><span class='line'>    <span class="k">def</span> <span class="nf">moo</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-</span><span class='line'>        <span class="k">print</span><span class="p">(</span><span class="s">&#39;Meow&#39;</span><span class="p">)</span>
-</span></code></pre></td></tr></table></div></figure>
+<time datetime="2013-11-01T18:01:00+01:00" pubdate data-updated="true">Nov 1<span>st</span>, 2013</time>
+      
 
-]]></content>
-  </entry>
+<span class="categories">
   
-</feed>
+    <a class='category' href='/blog/categories/groovy/'>groovy</a>, <a class='category' href='/blog/categories/java/'>java</a>, <a class='category' href='/blog/categories/jython/'>jython</a>, <a class='category' href='/blog/categories/maven/'>maven</a>, <a class='category' href='/blog/categories/tutorial/'>tutorial</a>
+  
+</span>
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://luver.github.io/blog/2013/11/01/using-jython-ang-groovy-from-java-app/" data-via="" data-counturl="http://luver.github.io/blog/2013/11/01/using-jython-ang-groovy-from-java-app/" >Tweet</a>
+  
+  
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/blog/2013/08/05/android-randoms/" title="Previous Post: Генерируем случайные числа тряской телефона">&laquo; Генерируем случайные числа тряской телефона</a>
+      
+      
+    </p>
+  </footer>
+</article>
+
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2013/11/01/using-jython-ang-groovy-from-java-app/">Используем Jython и Groovy из Java-приложения. Чайник-level.</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2013/08/05/android-randoms/">Генерируем случайные числа тряской телефона</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2013/07/18/test-post/">Тестовый пост</a>
+      </li>
+    
+  </ul>
+</section>
+
+
+
+
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2013 - Владислав Лубенский -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+
+
+
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = 'http://platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+
+
+</body>
+</html>
